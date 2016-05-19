@@ -1,0 +1,20 @@
+<script type="text/javascript">
+
+var log = window.parent.document.querySelector("#console");
+// var log = document.querySelector('#log');
+// debugger
+// 
+['log','warn','error', 'info', 'debug'].forEach(function (verb) {
+    console[verb] = (function (method, verb, log) {
+        return function (text) {
+            method(text);
+            var msg = document.createElement('code');
+            msg.classList.add(verb);
+            msg.textContent = verb + ': ' + text;
+            log.appendChild(msg);
+            log.scrollTop = log.scrollHeight;
+        };
+    })(console[verb].bind(console), verb, log);
+});  
+  
+</script>

@@ -13,3 +13,13 @@
  *= require_tree .
  *= require_self
  */
+
+
+div#console{
+  min-height: 350px;
+  overflow: auto;
+}
+
+div#console code{
+  display: block;
+}
