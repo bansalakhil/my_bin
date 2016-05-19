@@ -1,0 +1,2 @@
+module JsBinsHelper
+end

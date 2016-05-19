@@ -1,0 +1,2 @@
+class JsBin < ApplicationRecord
+end
