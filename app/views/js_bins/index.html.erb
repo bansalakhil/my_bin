@@ -6,10 +6,9 @@
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:html) %></th>
-      <th><%= model_class.human_attribute_name(:css) %></th>
-      <th><%= model_class.human_attribute_name(:js) %></th>
+      <th><%= model_class.human_attribute_name(:title) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%= model_class.human_attribute_name(:updated_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -17,10 +16,9 @@
     <% @js_bins.each do |js_bin| %>
       <tr>
         <td><%= link_to js_bin.id, js_bin_path(js_bin) %></td>
-        <td><%= js_bin.html %></td>
-        <td><%= js_bin.css %></td>
-        <td><%= js_bin.js %></td>
+        <td><%= js_bin.title %></td>
         <td><%=l js_bin.created_at %></td>
+        <td><%=l js_bin.updated_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_js_bin_path(js_bin), :class => 'btn btn-default btn-xs' %>

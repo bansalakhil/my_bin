@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160519103040) do
+ActiveRecord::Schema.define(version: 20160520105408) do
 
   create_table "js_bins", force: :cascade do |t|
     t.text     "html"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20160519103040) do
     t.text     "js"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "title"
   end
 
 end
