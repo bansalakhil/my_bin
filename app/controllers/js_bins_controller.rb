@@ -15,7 +15,7 @@ class JsBinsController < ApplicationController
 
   # GET /js_bins/new
   def new
-    @js_bin = JsBin.create(html: html, js: js, css: css)
+    @js_bin = JsBin.create(html: html, js: js, css: css, title: "Title")
     redirect_to edit_js_bin_path(@js_bin)
   end
 
@@ -71,7 +71,7 @@ class JsBinsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def js_bin_params
-      params.require(:js_bin).permit(:html, :css, :js)
+      params.require(:js_bin).permit(:html, :css, :js, :title)
     end
 
     def html

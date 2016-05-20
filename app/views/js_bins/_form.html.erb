@@ -16,7 +16,16 @@
   <% end %>
   <div class = " pull-left col-lg-8">
   <div class="form-group">
-    <div class="col-lg-offset-2 col-lg-10">
+    <div class=" col-lg-10">
+  
+      <div class="form-group pull-left col-lg-3">
+        <%= f.label :title, :class => 'control-label col-lg-3' %>
+        <div class="">
+          <%= f.text_field :title %>
+        </div>
+        <%=f.error_span(:title) %>
+      </div>
+
       <%= f.submit "Update & Run", :class => 'btn btn-primary' %>
       <%= link_to "Full Page", js_bin_path(@js_bin), :class => 'btn btn-primary', target: "_blank" %>
     </div>
@@ -57,3 +66,29 @@
     </div>
   </div>
 <% end %>
+
+
+<script type="text/javascript">
+  var jsTextArea = $("#js_bin_js");
+  var htmlTextArea = $("#js_bin_html");
+  var cssTextArea = $("#js_bin_css");
+
+    CodeMirror.fromTextArea(jsTextArea[0], {
+      lineNumbers: true,
+      mode: "javascript"
+    });
+
+
+
+    CodeMirror.fromTextArea(htmlTextArea[0], {
+      lineNumbers: true,
+      mode: "htmlmixed"
+    });
+
+    CodeMirror.fromTextArea(cssTextArea[0], {
+      lineNumbers: true,
+      mode: "css"
+    });
+
+
+</script>
