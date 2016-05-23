@@ -1,0 +1,12 @@
+<div>
+ We need you to be logged in using Google Account to access the requested page. 
+ You'll be redirected to google login page in 15 seconds, or alternatively you can <%= link_to "click here to login with google", new_sessions_path %>
+</div>
+
+<script type="text/javascript">
+  function redirect_to_google_login(){
+    window.location = "<%=new_sessions_path%>";
+  }
+
+  setTimeout(redirect_to_google_login, 15000);
+</script>

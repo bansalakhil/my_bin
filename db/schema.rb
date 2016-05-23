@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160523100348) do
+ActiveRecord::Schema.define(version: 20160523140713) do
 
   create_table "js_bins", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.text     "html",       limit: 65535
@@ -20,6 +20,19 @@ ActiveRecord::Schema.define(version: 20160523100348) do
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
     t.string   "title"
+    t.integer  "user_id"
+    t.index ["user_id"], name: "index_js_bins_on_user_id", using: :btree
+  end
+
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "profile_pic"
+    t.string   "uid"
+    t.string   "provider"
+    t.string   "token"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "versions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|

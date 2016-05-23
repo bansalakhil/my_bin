@@ -4,7 +4,7 @@ class JsBinsController < ApplicationController
   # GET /js_bins
   # GET /js_bins.json
   def index
-    @js_bins = JsBin.all
+    @js_bins = current_user.js_bins.all
   end
 
   # GET /js_bins/1
@@ -15,28 +15,12 @@ class JsBinsController < ApplicationController
 
   # GET /js_bins/new
   def new
-    @js_bin = JsBin.create(html: html, js: js, css: css, title: "Title")
+    @js_bin = current_user.js_bins.create(html: html, js: js, css: css, title: "Title")
     redirect_to edit_js_bin_path(@js_bin)
   end
 
   # GET /js_bins/1/edit
   def edit
-  end
-
-  # POST /js_bins
-  # POST /js_bins.json
-  def create
-    @js_bin = JsBin.new(js_bin_params)
-
-    respond_to do |format|
-      if @js_bin.save
-        format.html { redirect_to @js_bin, notice: 'Js bin was successfully created.' }
-        format.json { render :show, status: :created, location: @js_bin }
-      else
-        format.html { render :new }
-        format.json { render json: @js_bin.errors, status: :unprocessable_entity }
-      end
-    end
   end
 
   # PATCH/PUT /js_bins/1
@@ -64,18 +48,22 @@ class JsBinsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_js_bin
-      @js_bin = JsBin.find(params[:id])
+  # Use callbacks to share common setup or constraints between actions.
+  def set_js_bin
+    @js_bin = current_user.js_bins.find(params[:id]) rescue nil
+    unless @js_bin
+      flash[:error] = "Page you are looking for doesn't exists."
+      redirect_to_back_or_default
     end
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def js_bin_params
-      params.require(:js_bin).permit(:html, :css, :js, :title)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def js_bin_params
+    params.require(:js_bin).permit(:html, :css, :js, :title)
+  end
 
-    def html
-      '
+  def html
+    '
 <!DOCTYPE html>
 <html>
 <head>

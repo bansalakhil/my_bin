@@ -3,5 +3,42 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   
-  before_filter :set_paper_trail_whodunnit
+  before_action :set_paper_trail_whodunnit
+  before_action :authenticate
+
+
+  helper_method :current_user, :signed_in?, :get_guide_titles
+
+  protected
+
+  def access_denied(exception)
+    flash[:error] = exception.message
+    redirect_to_back_or_default
+  end
+
+  def current_user
+    @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
+  end
+
+  def signed_in?
+    !!current_user
+  end
+
+  def authenticate
+    if !signed_in?
+      store_location
+      flash[:error] = "You need to be logged in to access the requested page"
+      redirect_to login_path
+    end
+  end
+
+  def redirect_to_back_or_default
+    redirect_to(session[:return_to] || root_path)
+    session.delete(:return_to)
+  end  
+
+  def store_location(url = nil)
+    session[:return_to] = url || request.url
+  end
+  
 end
