@@ -1,0 +1,3 @@
+<% if @resource.is_a? JsBin %>
+  <%= render partial: 'js_bin', locals: {js_bin: @version.try(:reify) || @resource} -%>
+<% end %> 

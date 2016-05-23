@@ -11,15 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160520105408) do
+ActiveRecord::Schema.define(version: 20160523100348) do
 
-  create_table "js_bins", force: :cascade do |t|
-    t.text     "html"
-    t.text     "css"
-    t.text     "js"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "js_bins", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.text     "html",       limit: 65535
+    t.text     "css",        limit: 65535
+    t.text     "js",         limit: 65535
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.string   "title"
+  end
+
+  create_table "versions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
+    t.string   "item_type",                         null: false
+    t.integer  "item_id",                           null: false
+    t.string   "event",                             null: false
+    t.string   "whodunnit"
+    t.text     "object",         limit: 4294967295
+    t.datetime "created_at"
+    t.text     "object_changes", limit: 4294967295
+    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", length: {"item_type"=>191, "item_id"=>nil}, using: :btree
   end
 
 end

@@ -16,7 +16,7 @@
     <% @js_bins.each do |js_bin| %>
       <tr>
         <td><%= link_to js_bin.id, js_bin_path(js_bin) %></td>
-        <td><%= js_bin.title %></td>
+        <td><%= link_to js_bin.title, js_bin_path(js_bin) %></td>
         <td><%=l js_bin.created_at %></td>
         <td><%=l js_bin.updated_at %></td>
         <td>

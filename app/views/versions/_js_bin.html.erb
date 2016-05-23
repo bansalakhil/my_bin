@@ -1,32 +1,20 @@
-<%= form_for @js_bin, :html => { :class => "form-horizontal js_bin" } do |f| %>
+<% versions = js_bin.versions %>
+<%= form_for js_bin, url: "", :html => { :class => "form-horizontal js_bin" } do |f| %>
 
-  <% if @js_bin.errors.any? %>
-    <div id="error_expl" class="panel panel-danger">
-      <div class="panel-heading">
-        <h3 class="panel-title"><%= pluralize(@js_bin.errors.count, "error") %> prohibited this js_bin from being saved:</h3>
-      </div>
-      <div class="panel-body">
-        <ul>
-        <% @js_bin.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-        </ul>
-      </div>
-    </div>
-  <% end %>
-  <div class = " pull-left col-lg-8">
+  <div class = " pull-left col-lg-12">
   <div class="form-group">
-    <div class=" col-lg-10">
+    <div class=" col-lg-12">
       <div class="form-group pull-left col-lg-4">
-        <%= f.label :title, :class => 'control-label col-lg-3' %>
         <div class="">
-          <%= f.text_field :title %>
+          <h4><%= js_bin.title %></h4>
+          <small><%= time_ago_in_words(@version ? @version.created_at : js_bin.updated_at) -%> ago</small>
+          <% if @version%>
+            <%= link_to "See The Latest Version", js_bin_version_path(js_bin, id: :latest), class: 'btn btn-primary' %>
+          <% else %>
+            <%= link_to "Edit", edit_js_bin_path(js_bin), class: 'btn btn-info' %>
+          <% end %>
         </div>
-        <%=f.error_span(:title) %>
       </div>
-
-      <%= f.submit "Update & Run", :class => 'btn btn-primary' %>
-      <%= link_to "Full Page", js_bin_path(@js_bin), :class => 'btn btn-primary', target: "_blank" %>
     </div>
   </div>
 
@@ -61,25 +49,25 @@
   </div>
 <% end %>
   <div class="form-group">
-    <div class=" col-lg-4">
+    <div class=" col-lg-12">
       <b>Preview:</b>
-      <iframe src="<%=js_bin_path(@js_bin, debug: true)%>" width =  100% height = 600px></iframe>
+      <iframe src="<%=js_bin_path(js_bin, debug: true)%>" width =  100% height = 600px></iframe>
     </div>
   </div>
 
-  <% if @js_bin.versions.present? %>
+  <% if versions.present? %>
   <div id = 'versions' class = 'col-lg-12'>
     <h4>Older Versions:</h4>
-    <% @js_bin.versions.each do |v| %>
+    <% versions.each do |v| %>
       <div>
         <small>
-          <%= link_to  js_bin_version_path(@js_bin, v), title: v.created_at do %>
-            <%= time_ago_in_words(v.created_at) -%> ago
+          <%= link_to  js_bin_version_path(js_bin, v), title: v.created_at do %>
+            <%= time_ago_in_words v.created_at -%> ago
           <%end%>  
         </small>
       </div>
     <% end %>
-    <%= link_to "Latest Version", js_bin_version_path(@js_bin, id: :latest)%>
+    <%= link_to "Latest Version", js_bin_version_path(js_bin, id: :latest)%>
   </div>
   <% end %>
 
@@ -90,18 +78,21 @@
 
     CodeMirror.fromTextArea(jsTextArea[0], {
       lineNumbers: true,
-      mode: "javascript"
+      mode: "javascript",
+      readOnly: true
     });
 
 
 
     CodeMirror.fromTextArea(htmlTextArea[0], {
       lineNumbers: true,
+      readOnly: true,
       mode: "htmlmixed"
     });
 
     CodeMirror.fromTextArea(cssTextArea[0], {
       lineNumbers: true,
+      readOnly: true,
       mode: "css"
     });
 
