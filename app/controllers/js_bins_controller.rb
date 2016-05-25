@@ -1,6 +1,8 @@
 class JsBinsController < ApplicationController
   before_action :set_js_bin, only: [:show, :edit, :update, :destroy]
 
+  authorize_resource
+
   # GET /js_bins
   # GET /js_bins.json
   def index
@@ -28,7 +30,7 @@ class JsBinsController < ApplicationController
   def update
     respond_to do |format|
       if @js_bin.update(js_bin_params)
-        format.html { redirect_to edit_js_bin_path(@js_bin), notice: 'Js bin was successfully updated.' }
+        format.html { redirect_to edit_js_bin_path(@js_bin, anchor: :preview), notice: 'Js bin was successfully updated.' }
         format.json { render :show, status: :ok, location: @js_bin }
       else
         format.html { render :edit }
@@ -50,7 +52,7 @@ class JsBinsController < ApplicationController
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_js_bin
-    @js_bin = current_user.js_bins.find(params[:id]) rescue nil
+    @js_bin = JsBin.find(params[:id]) rescue nil
     unless @js_bin
       flash[:error] = "Page you are looking for doesn't exists."
       redirect_to_back_or_default

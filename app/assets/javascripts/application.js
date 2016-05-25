@@ -18,4 +18,4 @@
 //= require codemirror/modes/css
 //= require codemirror/modes/xml
 //= require codemirror/modes/htmlmixed
-//= require_tree .
+//= require jquery-ui/tabs

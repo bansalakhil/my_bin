@@ -1,0 +1,35 @@
+<% content_for :footer do -%>
+  <script type="text/javascript">
+    var textEditable = <%= (can? :update, js_bin)? false : true %>;
+    var jsTextArea = $("#js_bin_js");
+    var htmlTextArea = $("#js_bin_html");
+    var cssTextArea = $("#js_bin_css");
+
+      CodeMirror.fromTextArea(jsTextArea[0], {
+        lineNumbers: true,
+        readOnly: textEditable,
+        mode: "javascript"
+      });
+
+      CodeMirror.fromTextArea(htmlTextArea[0], {
+        lineNumbers: true,
+        readOnly: textEditable,
+        mode: "htmlmixed"
+      });
+
+      CodeMirror.fromTextArea(cssTextArea[0], {
+        lineNumbers: true,
+        readOnly: textEditable,
+        mode: "css"
+      });
+
+    $(function() {
+        $("#tabs").tabs({
+            activate: function(event, ui) {
+                window.location.hash = ui.newPanel.attr('id');
+            }
+        });
+    });
+
+  </script>
+<% end %>

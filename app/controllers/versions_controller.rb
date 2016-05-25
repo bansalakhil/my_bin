@@ -1,9 +1,10 @@
 class VersionsController < ApplicationController
   before_action :set_resource
 
-
   def show
+    
     @version = @resource.versions.find_by(id: params[:id])
+    authorize! :show, @resource
   end
 
 
