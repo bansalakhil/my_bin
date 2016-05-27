@@ -5,7 +5,7 @@
     var htmlTextArea = $("#js_bin_html");
     var cssTextArea = $("#js_bin_css");
 
-      CodeMirror.fromTextArea(jsTextArea[0], {
+    var jsEditor =   CodeMirror.fromTextArea(jsTextArea[0], {
         lineNumbers: true,
         readOnly: textEditable,
         mode: "javascript"
@@ -29,7 +29,57 @@
                 window.location.hash = ui.newPanel.attr('id');
             }
         });
+
+        function checkJsLint(){
+          var js = jsEditor.getValue();
+
+          if(js.length){
+            var options = {
+              undef: true
+            };
+
+            JSHINT(js, options);
+            var data = JSHINT.data();
+            var errors = data.errors;
+
+            var $lintErrorCountBox = $("#lint_error_count")
+            var $lintErrorBox = $("#jshint div#errors");
+            $lintErrorBox.empty();
+
+            if(errors && errors.length){
+
+              var errorMsg ;
+              errors.forEach(function(obj, index){
+                errorMsg = $("<div>", {class: obj.id});
+                errorMsg.html("Line: "+ obj.line + " Col: "+ obj.character +" &nbsp;&nbsp;&nbsp; "+ obj.reason + " ");
+                $lintErrorBox.append(errorMsg);
+              })
+            }
+
+            var unused = data.unused;
+            if(unused && unused.length){
+              var errorMsg ;
+              unused.forEach(function(obj, index){
+                errorMsg = $("<div>", {class: 'unused'});
+                errorMsg.html("Line: "+ obj.line + " Col: "+ obj.character +" &nbsp;&nbsp;&nbsp; unused '"+ obj.name + "' ");
+                $lintErrorBox.append(errorMsg);
+              })
+            }            
+            
+            $lintErrorCountBox.text($lintErrorBox.find("div").length);
+          }
+        }
+
+
+        checkJsLint();
+        setInterval(checkJsLint, 10000)
+
     });
+
+
+
 
   </script>
 <% end %>
+
+<%= javascript_include_tag :jshint%>

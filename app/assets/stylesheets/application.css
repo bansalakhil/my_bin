@@ -30,3 +30,24 @@ div#console code{
 .CodeMirror{
   height: auto !important;
 }
+
+span#lint_error_count{
+  padding: 2px;
+  font-size: smaller;
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px 5px 5px 5px;
+}
+
+div#errors div{
+  padding: 2px;
+  margin: 2px;
+}
+div#errors div.unused{
+  background-color: #ddd;
+}
+
+div#errors div[class*='error']{
+  background-color: #FDDCDC;
+}

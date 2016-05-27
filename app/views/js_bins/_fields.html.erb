@@ -4,6 +4,7 @@
       <li><a href="#html">HTML</a></li>
       <li><a href="#css">CSS</a></li>
       <li><a href="#js">JS</a></li>
+      <li><a href="#jshint">JSHint <span id = 'lint_error_count'>0</span> </a></li>
       <li><a href="#cons">Console</a></li>
       <li><a href="#preview">Preview</a></li>
       <li><a href="#versions">History</a></li>
@@ -39,6 +40,12 @@
         </div>
       </p>
     </div>
+    <div id="jshint">
+      <p>
+        <div id="errors">
+        </div>
+      </p>
+    </div>    
     <div id="cons">
       <p>
         <div class="console">
@@ -60,6 +67,7 @@
         <div>
             <%= link_to  js_bin_version_path(js_bin, v), title: v.created_at do %>
               <%= "v-#{index+1}: " + time_ago_in_words(v.created_at) -%> ago
+              <small>(<%= v.created_at -%>)</small>
             <%end%>
         </div>
       <% end %>
