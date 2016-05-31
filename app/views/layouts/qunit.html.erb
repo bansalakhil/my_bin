@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= @page_title -%> | MyBin</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'qunit-1.23.1', media: 'all' %>
+    <%= javascript_include_tag 'js_tests' %>
+    <%= javascript_include_tag 'qunit-1.23.1' %>
+  </head>
+
+  <body>
+  <div id="qunit"></div>
+
+    <%= yield %>
+
+  </body>
+</html>

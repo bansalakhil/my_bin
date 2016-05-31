@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   root to: "home#index"
 
   resources :js_bins do
+    member do
+      get :qunit
+    end
     resources :versions
   end
 

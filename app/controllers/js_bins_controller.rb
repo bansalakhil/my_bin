@@ -1,5 +1,5 @@
 class JsBinsController < ApplicationController
-  before_action :set_js_bin, only: [:show, :edit, :update, :destroy]
+  before_action :set_js_bin, only: [:show, :edit, :update, :destroy, :qunit]
 
   authorize_resource
 
@@ -19,6 +19,11 @@ class JsBinsController < ApplicationController
   def new
     @js_bin = current_user.js_bins.create(html: html, js: js, css: css, title: "Title")
     redirect_to edit_js_bin_path(@js_bin)
+  end
+
+  def qunit
+    @page_title = @js_bin.title
+    render layout: 'qunit'
   end
 
   # GET /js_bins/1/edit
@@ -61,7 +66,7 @@ class JsBinsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def js_bin_params
-    params.require(:js_bin).permit(:html, :css, :js, :title)
+    params.require(:js_bin).permit(:html, :css, :js, :title, :tests)
   end
 
   def html

@@ -27,4 +27,11 @@ module ApplicationHelper
     body.add_child("<script language = 'javascript'>\n#{js_bin.js}</script>")
     doc.to_html.html_safe
   end
+
+  def get_html_body(js_bin)
+    doc = Nokogiri::HTML.parse(js_bin.html)
+    body = doc.at("body")
+    body.children.to_html.html_safe
+  end
+
 end

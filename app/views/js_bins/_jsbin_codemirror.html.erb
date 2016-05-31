@@ -3,6 +3,7 @@
     var textEditable = <%= (can? :update, js_bin)? false : true %>;
     var jsTextArea = $("#js_bin_js");
     var htmlTextArea = $("#js_bin_html");
+    var testsTextArea = $("#js_bin_tests");
     var cssTextArea = $("#js_bin_css");
 
     var jsEditor =   CodeMirror.fromTextArea(jsTextArea[0], {
@@ -15,6 +16,12 @@
         lineNumbers: true,
         readOnly: textEditable,
         mode: "htmlmixed"
+      });
+
+      CodeMirror.fromTextArea(testsTextArea[0], {
+        lineNumbers: true,
+        readOnly: textEditable,
+        mode: "javascript"
       });
 
       CodeMirror.fromTextArea(cssTextArea[0], {
