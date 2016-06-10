@@ -1,0 +1,25 @@
+<% content_for :footer do -%>
+  <script type="text/javascript">
+    var textEditable = <%= (can? :update, ruby_bin)? false : true %>;
+    var codeTextArea = $("#ruby_bin_code");
+
+    var rubyEditor =   CodeMirror.fromTextArea(codeTextArea[0], {
+        lineNumbers: true,
+        readOnly: textEditable,
+        mode: "ruby"
+      });
+
+    $(function() {
+        $("#tabs").tabs({
+            activate: function(event, ui) {
+                window.location.hash = ui.newPanel.attr('id');
+            }
+        });
+
+    });
+
+
+
+  </script>
+<% end %>
+

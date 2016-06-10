@@ -7,9 +7,16 @@ class Ability
       can :read, :all
       can :manage, JsBin, user_id: user.id
       can [:show, :edit], JsBin
+
+      can :manage, RubyBin, user_id: user.id
+      can [:show, :edit], RubyBin
+
     elsif user.persisted? && !user.admin?
       can :manage, JsBin, user_id: user.id
       can :read, JsBin, user_id: user.id
+
+      can :manage, RubyBin, user_id: user.id
+      can :read, RubyBin, user_id: user.id
     end
     # Define abilities for the passed in user here. For example:
     #

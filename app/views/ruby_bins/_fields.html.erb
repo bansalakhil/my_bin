@@ -1,0 +1,79 @@
+<div class="col-lg-12">
+  <div id="tabs">
+    <ul>
+      <li><a href="#code">Code</a></li>
+      <li><a href="#input">input</a></li>
+      <li><a href="#output">output</a></li>
+      <li><a href="#lint">Lint <span id = 'lint_error_count'>0</span> </a></li>
+      <li><a href="#tests">Tests</a></li>
+      <li><a href="#versions">History</a></li>
+    </ul>
+    <div id="code">
+        <div class="">
+          <%= f.label :code, :class => 'control-label' %>
+          <div class="">
+            <%= f.text_area :code, :class => 'bin' %>
+          </div>
+          <%=f.error_span(:code) %>
+        </div>
+    </div>
+    <div id="input">
+      <p>
+        <div class="">
+        <%= f.label :input, :class => 'control-label ' %>
+        <div class="">
+          <%= f.text_area :input, :class => 'form-control'%>
+        </div>
+        <%=f.error_span(:input) %>
+      </div>
+      </p>
+    </div>
+    <div id="lint">
+      <p>
+        <div id="errors">
+        </div>
+      </p>
+    </div>
+    <div id="output">
+      <p>
+        <div class="console">
+          <%= label_tag :console %>
+          <div id = 'console-block' class = "">
+          </div>
+        </div>
+      </p>
+    </div>
+    <div id="output">
+      <p>
+      </p>
+    </div>
+    <div id="tests">
+      <p>
+        <div class="">
+          <%= f.label :tests, :class => 'control-label ' %>
+          <div class="">
+            <%= f.text_area :tests, :class => 'form-control'%>
+          </div>
+          <%=f.error_span(:tests) %>
+        </div>
+      </p>
+    </div>
+    <div id = 'versions' >
+    <% if ruby_bin.versions.present? %>
+      <h4>Older Versions:</h4>
+      <% ruby_bin.versions.each_with_index do |v, index| %>
+        <div>
+            <%= link_to  ruby_bin_version_path(ruby_bin, v), title: v.created_at do %>
+              <%= "v-#{index+1}: " + time_ago_in_words(v.created_at) -%> ago
+              <small>(<%= v.created_at -%>)</small>
+            <%end%>
+        </div>
+      <% end %>
+      <%= link_to "Latest Version", ruby_bin_version_path(ruby_bin, id: :latest)%>
+    <% end %>
+    </div>
+  </div>
+</div>
+
+
+<%= render partial: '/ruby_bins/rubybin_codemirror', locals: { ruby_bin: ruby_bin} %>

@@ -1,0 +1,27 @@
+<%= form_for @ruby_bin, :html => { :class => "form-horizontal ruby_bin" } do |f| %>
+
+<%= render partial: 'shared/form_errors', locals: {obj: @ruby_bin} %>
+
+<div class="form-group">
+  <div class=" col-lg-10">
+    <div class="form-group pull-left col-lg-4">
+      <div class="">
+      <% if can? :update, @ruby_bin %>
+        <%= f.label :title, :class => 'control-label col-lg-3' %>
+        <%= f.text_field :title %>
+      <% else %>
+          <h4><%= @ruby_bin.title %></h4>
+      <% end %>
+      </div>
+      <%=f.error_span(:title) %>
+    </div>
+    <% if can? :update, @ruby_bin %>
+      <%= f.submit "Update & Run", :class => 'btn btn-primary' %>
+    <% end %>
+    <%= link_to "Full Page", ruby_bin_path(@ruby_bin), :class => 'btn btn-primary', target: "_blank" %>
+  </div>
+</div>
+
+<%= render partial: 'fields', locals: {f: f, ruby_bin: @ruby_bin} %>
+
+<% end %>

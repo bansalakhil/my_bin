@@ -4,6 +4,7 @@ class User < ApplicationRecord
   validates :uid, uniqueness: { scope: :provider, case_sensitive: false }
 
   has_many :js_bins, dependent: :destroy
+  has_many :ruby_bins, dependent: :destroy
 
   def update_info_from_auth_hash(auth_hash)
     update_attributes(

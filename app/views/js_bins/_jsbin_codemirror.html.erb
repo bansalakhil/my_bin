@@ -71,15 +71,15 @@
                 errorMsg.html("Line: "+ obj.line + " Col: "+ obj.character +" &nbsp;&nbsp;&nbsp; unused '"+ obj.name + "' ");
                 $lintErrorBox.append(errorMsg);
               })
-            }            
-            
+            }
+
             $lintErrorCountBox.text($lintErrorBox.find("div").length);
           }
         }
 
 
         checkJsLint();
-        setInterval(checkJsLint, 10000)
+        setInterval(checkJsLint, 5000)
 
     });
 

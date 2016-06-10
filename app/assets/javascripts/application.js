@@ -16,6 +16,7 @@
 //= require codemirror
 //= require codemirror/modes/javascript
 //= require codemirror/modes/css
+//= require codemirror/modes/ruby
 //= require codemirror/modes/xml
 //= require codemirror/modes/htmlmixed
 //= require jquery-ui/tabs

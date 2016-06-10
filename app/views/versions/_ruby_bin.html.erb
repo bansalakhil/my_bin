@@ -1,0 +1,25 @@
+<% versions = ruby_bin.versions %>
+<%= form_for ruby_bin, url: "", :html => { :class => "form-horizontal ruby_bin" } do |f| %>
+
+  <div class = " pull-left col-lg-12">
+  <div class="form-group">
+    <div class=" col-lg-12">
+      <div class="form-group pull-left col-lg-4">
+        <div class="">
+          <h4><%= ruby_bin.title %></h4>
+          <small>at <%= (@version ? @version.created_at : ruby_bin.updated_at) -%> </small>
+          <% if @version%>
+            <%= link_to "See The Latest Version", ruby_bin_version_path(ruby_bin, id: :latest), class: 'btn btn-primary pull-right' %>
+          <% else %>
+            <% if can? :update, ruby_bin %>
+            <%= link_to "Edit", edit_ruby_bin_path(ruby_bin), class: 'btn btn-info' %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<%= render partial: '/ruby_bins/fields', locals: {f: f, ruby_bin: ruby_bin} %>
+
+<% end %>

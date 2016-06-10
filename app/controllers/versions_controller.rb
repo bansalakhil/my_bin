@@ -11,7 +11,7 @@ class VersionsController < ApplicationController
   private
 
   def set_resource
-    klass = [JsBin].detect{|c| params["#{c.name.underscore}_id"]}
+    klass = [JsBin, RubyBin].detect{|c| params["#{c.name.underscore}_id"]}
     @resource = klass.find(params["#{klass.name.underscore}_id"])
 
     unless @resource

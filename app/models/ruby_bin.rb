@@ -1,4 +1,5 @@
-class JsBin < ApplicationRecord
+class RubyBin < ApplicationRecord
+
   has_paper_trail :on => [:update]
 
   belongs_to :user
