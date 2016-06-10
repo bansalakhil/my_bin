@@ -4,7 +4,8 @@
       <li><a href="#code">Code</a></li>
       <li><a href="#input">input</a></li>
       <li><a href="#output">output</a></li>
-      <li><a href="#lint">Lint <span id = 'lint_error_count'>0</span> </a></li>
+      <li><a href="#lint">Lint <span id = 'lint_error_count'><%= @ruby_runner.lint_errors.lines.count %></span> </a></li>
+      <li><a href="#rubocop">Rubocop </a></li>
       <li><a href="#tests">Tests</a></li>
       <li><a href="#versions">History</a></li>
     </ul>
@@ -31,20 +32,20 @@
     <div id="lint">
       <p>
         <div id="errors">
+        <%= simple_format @ruby_runner.lint_errors -%>
         </div>
       </p>
     </div>
-    <div id="output">
+    <div id="rubocop">
       <p>
-        <div class="console">
-          <%= label_tag :console %>
-          <div id = 'console-block' class = "">
-          </div>
+        <div id="errors">
+        <%= simple_format @ruby_runner.rubocop_errors -%>
         </div>
       </p>
-    </div>
+    </div>    
     <div id="output">
       <p>
+      <%= simple_format @ruby_runner.output -%>
       </p>
     </div>
     <div id="tests">

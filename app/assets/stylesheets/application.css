@@ -31,7 +31,7 @@ div#console code{
   height: auto !important;
 }
 
-span#lint_error_count{
+span#lint_error_count, span#rubocop_error_count{
   padding: 2px;
   font-size: smaller;
   background-color: red;

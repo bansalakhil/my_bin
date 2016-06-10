@@ -17,12 +17,14 @@ class RubyBinsController < ApplicationController
   end
 
   def edit
+    @ruby_runner = RubyRunner.new(@ruby_bin)
+    @ruby_runner.execute
   end
 
   def update
     respond_to do |format|
       if @ruby_bin.update(ruby_bin_params)
-        format.html { redirect_to edit_ruby_bin_path(@ruby_bin, anchor: :preview), notice: 'RubyBin was successfully updated.' }
+        format.html { redirect_to edit_ruby_bin_path(@ruby_bin, anchor: :output), notice: 'RubyBin was successfully updated.' }
         format.json { render :show, status: :ok, location: @ruby_bin }
       else
         format.html { render :edit }
@@ -51,7 +53,7 @@ class RubyBinsController < ApplicationController
 
   # Never trust parameters from the scary INTERNET, only allow the white list through.
   def ruby_bin_params
-    params.require(:ruby_bin).permit(:title, :code, :tests)
+    params.require(:ruby_bin).permit(:title, :code, :tests, :input)
   end
 
   def initial_code
