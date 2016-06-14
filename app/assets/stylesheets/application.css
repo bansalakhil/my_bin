@@ -51,3 +51,33 @@ div#errors div.unused{
 div#errors div[class*='error']{
   background-color: #FDDCDC;
 }
+
+div#errors div.convention{
+  background: #fff8c3;
+}
+
+div#errors div.refactor{
+  background: #DEBDFD;
+}
+
+div#errors div.warning{
+  background: #FFB88F;
+}
+
+div#errors div.error{
+  background: #FFC8C8;
+}
+
+div#errors div.fatal{
+  background: #FF0A0A;
+}
+
+div#test_run div.pass{
+  background: green;
+  padding: 15px;
+}
+
+div#test_run div.fail{
+  padding: 15px;
+  background: red;
+}

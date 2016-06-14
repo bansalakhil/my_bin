@@ -1,3 +1,4 @@
+<% rubocop_errors = JSON.parse(@ruby_runner.rubocop_errors) -%>
 <div class="col-lg-12">
   <div id="tabs">
     <ul>
@@ -5,8 +6,9 @@
       <li><a href="#input">input</a></li>
       <li><a href="#output">output</a></li>
       <li><a href="#lint">Lint <span id = 'lint_error_count'><%= @ruby_runner.lint_errors.lines.count %></span> </a></li>
-      <li><a href="#rubocop">Rubocop </a></li>
+      <li><a href="#rubocop">Rubocop <span id = 'lint_error_count'><%= rubocop_errors["summary"]["offense_count"] %></a></li>
       <li><a href="#tests">Tests</a></li>
+      <li><a href="#test_run">Tests Run</a></li>
       <li><a href="#versions">History</a></li>
     </ul>
     <div id="code">
@@ -39,10 +41,23 @@
     <div id="rubocop">
       <p>
         <div id="errors">
-        <%= simple_format @ruby_runner.rubocop_errors -%>
+        <% rubocop_errors["files"].each do |file| %>
+          <% errors = file['offenses'].group_by{|x| x['severity'] } %>
+          <% errors.each do |severity, offenses| %>
+            <div class = '<%= severity -%>'>
+              <h3><%= severity -%></h3>
+              <% offenses.each do |offense| %>
+                <div>
+                  <span class = "col-md-2">Line: <%= offense["location"]["line"] -%> Col: <%= offense["location"]["column"] -%></span> 
+                  <%= offense["message"] -%>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        <%end%>
         </div>
       </p>
-    </div>    
+    </div>
     <div id="output">
       <p>
       <%= simple_format @ruby_runner.output -%>
@@ -53,12 +68,36 @@
         <div class="">
           <%= f.label :tests, :class => 'control-label ' %>
           <div class="">
-            <%= f.text_area :tests, :class => 'form-control'%>
+            <%= f.text_area :tests, :class => 'form-control', rows: 20%>
           </div>
           <%=f.error_span(:tests) %>
         </div>
       </p>
     </div>
+    <div id="test_run">
+      <p>
+        <div class="">
+        <% if @ruby_runner.test_runs.present? %>
+          <% @ruby_runner.test_runs.each do |test| %>
+            <div class = "<%= (test[:passed]) ? "pass" : "fail" -%>">
+              <div>name:<br/> <%= test[:name] -%></div>
+              <br/>
+              <div>input:<br/> <%= test[:input] -%></div>
+              <br/>
+              <div>expected output:<br/> <%= simple_format test[:output] -%></div>
+              <br/>
+              <div>actual output:<br/> <%= simple_format test[:actual_output] -%></div>
+            </div>
+            <br/>
+            <br/>
+            ===
+            <br/>
+            <br/>
+          <% end %>
+        <% end %>
+        </div>
+      </p>
+    </div>    
     <div id = 'versions' >
     <% if ruby_bin.versions.present? %>
       <h4>Older Versions:</h4>

@@ -1,9 +1,10 @@
 class RubyRunner
-  attr_accessor :ruby_bin, :container_name, :output, :lint_errors, :rubocop_errors
+  attr_accessor :ruby_bin, :container_name, :output, :lint_errors, :rubocop_errors, :test_runs
 
   def initialize(ruby_bin)
     self.ruby_bin = ruby_bin
     self.container_name = "ruby-2-3-1"
+    self.test_runs = []
   end
 
   #Note: execute method executes ruby code by dumping ruby code in a file in /tmp/ directory with filename id.rb
@@ -15,6 +16,7 @@ class RubyRunner
     output = execute_rubybin_file
     lint_errors = check_lint
     rubocop_errors = check_rubocop
+    run_tests
     delete_ruby_file
     self.output = output
     self.lint_errors = lint_errors
@@ -62,10 +64,26 @@ class RubyRunner
     `docker exec #{container_name} ruby-lint #{ruby_bin_file}`
   end  
 
+  def run_tests
+    Rails.logger.info "#"*80
+    Rails.logger.debug "Running tests"
+    tests = ruby_bin.tests.split("===")
+    if tests.present?
+      tests.each do |test|
+        name = test.scan(/\[name\](.*)\[\/name\]/mi).flatten.first.strip
+        input = test.scan(/\[input\](.*)\[\/input\]/mi).flatten.first.strip
+        output = test.scan(/\[output\](.*)\[\/output\]/mi).flatten.first.strip
+        actual_output = (`docker exec -it #{container_name} ruby #{ruby_bin_file} #{input}`).strip
+        self.test_runs<< {name: name, input: input, output: output, actual_output: actual_output, passed: (output == actual_output)}
+
+      end
+    end
+  end
+
   def check_rubocop
     Rails.logger.info "#"*80
     Rails.logger.debug "creating rubocop for ruby_bin##{ruby_bin.id}"
-    `docker exec #{container_name} rubocop --format simple #{ruby_bin_file}`
+    `docker exec #{container_name} rubocop --format json #{ruby_bin_file}`
   end  
 
   def ruby_bin_file
