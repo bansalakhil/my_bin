@@ -4,6 +4,7 @@
       <li><a href="#html">HTML</a></li>
       <li><a href="#css">CSS</a></li>
       <li><a href="#js">JS</a></li>
+      <li><a href="#js_init">JS Init</a></li>
       <li><a href="#jshint">JSHint <span id = 'lint_error_count'>0</span> </a></li>
       <li><a href="#cons">Console</a></li>
       <li><a href="#preview">Preview</a></li>
@@ -35,6 +36,10 @@
       <p>
         <div class="">
           <%= f.label :js, :class => 'control-label ' %>
+          <br />
+          <b>Just write your js classes/functions here. Code to initialize/execute your script should go in js init tab</b>
+          <br />
+          <br />
           <div class="">
             <%= f.text_area :js, :class => 'form-control'%>
           </div>
@@ -42,6 +47,21 @@
         </div>
       </p>
     </div>
+    <div id="js_init">
+      <p>
+        <div class="">
+          <%= f.label :js_init, :class => 'control-label ' %>
+          <br />
+          <b>Just write your js initialize your js without $(document).ready(). Your code here will automatically wrapped in $(document).ready </b>
+          <br />
+          <br />
+          <div class="">
+            <%= f.text_area :js_init, :class => 'form-control'%>
+          </div>
+          <%=f.error_span(:js_init) %>
+        </div>
+      </p>
+    </div>    
     <div id="jshint">
       <p>
         <div id="errors">

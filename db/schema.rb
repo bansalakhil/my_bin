@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160606134819) do
+ActiveRecord::Schema.define(version: 20160616120829) do
 
   create_table "js_bins", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.text     "html",       limit: 65535
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20160606134819) do
     t.string   "title"
     t.integer  "user_id"
     t.text     "tests",      limit: 65535
+    t.text     "js_init",    limit: 65535
     t.index ["user_id"], name: "index_js_bins_on_user_id", using: :btree
   end
 

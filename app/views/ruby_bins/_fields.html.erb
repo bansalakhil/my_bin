@@ -8,7 +8,7 @@
       <li><a href="#lint">Lint <span id = 'lint_error_count'><%= @ruby_runner.lint_errors.lines.count %></span> </a></li>
       <li><a href="#rubocop">Rubocop <span id = 'lint_error_count'><%= rubocop_errors["summary"]["offense_count"] %></a></li>
       <li><a href="#tests">Tests</a></li>
-      <li><a href="#test_run">Tests Run</a></li>
+      <li><a href="#test_run">Tests Run<span id = 'lint_error_count'><%= @ruby_runner.test_runs.select{|test| !test[:passed]}.size %></a></li>
       <li><a href="#versions">History</a></li>
     </ul>
     <div id="code">

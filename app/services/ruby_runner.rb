@@ -62,9 +62,10 @@ class RubyRunner
     Rails.logger.info "#"*80
     Rails.logger.debug "creating lint for ruby_bin##{ruby_bin.id}"
     `docker exec #{container_name} ruby-lint #{ruby_bin_file}`
-  end  
+  end
 
   def run_tests
+    return if ruby_bin.tests.blank?
     Rails.logger.info "#"*80
     Rails.logger.debug "Running tests"
     tests = ruby_bin.tests.split("===")
@@ -75,7 +76,6 @@ class RubyRunner
         output = test.scan(/\[output\](.*)\[\/output\]/mi).flatten.first.strip
         actual_output = (`docker exec -it #{container_name} ruby #{ruby_bin_file} #{input}`).strip
         self.test_runs<< {name: name, input: input, output: output, actual_output: actual_output, passed: (output == actual_output)}
-
       end
     end
   end
@@ -84,7 +84,7 @@ class RubyRunner
     Rails.logger.info "#"*80
     Rails.logger.debug "creating rubocop for ruby_bin##{ruby_bin.id}"
     `docker exec #{container_name} rubocop --format json #{ruby_bin_file}`
-  end  
+  end
 
   def ruby_bin_file
     "/tmp/rubybin_#{ruby_bin.id}.rb"

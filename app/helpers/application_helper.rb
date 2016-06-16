@@ -25,6 +25,11 @@ module ApplicationHelper
     head.add_child("<style>\n#{js_bin.css}</style>")
     body.add_child(render(partial: "js_bins/hijack_js_console")) if hijack_js_console
     body.add_child("<script language = 'javascript'>\n#{js_bin.js}</script>")
+    body.add_child("<script language = 'javascript'>
+      $(document).ready(function(){
+          #{js_bin.js_init}
+        });
+      </script>")
     doc.to_html.html_safe
   end
 

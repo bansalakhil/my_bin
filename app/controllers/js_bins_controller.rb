@@ -66,7 +66,7 @@ class JsBinsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def js_bin_params
-    params.require(:js_bin).permit(:html, :css, :js, :title, :tests)
+    params.require(:js_bin).permit(:html, :css, :js, :title, :tests, :js_init)
   end
 
   def html
