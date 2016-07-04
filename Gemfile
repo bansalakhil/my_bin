@@ -17,6 +17,7 @@ gem 'therubyracer', platforms: :ruby
 gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'uglifier', '>= 1.3.0'
+gem 'mysql2'
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
@@ -32,7 +33,6 @@ end
 
 group :development, :test do
   gem 'byebug', platform: :mri
-  gem 'mysql2'
   gem "rspec-rails"
 end
 group :production do
