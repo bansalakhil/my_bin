@@ -24,6 +24,10 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console'
+  gem 'capistrano-rails',               '~> 1.1.6'
+  gem 'capistrano-passenger'
+  gem 'capistrano-rails-console'
+  gem 'capistrano-rails-tail-log',      '~> 0.1.0'  
 end
 
 group :development, :test do
