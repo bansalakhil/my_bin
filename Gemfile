@@ -29,6 +29,7 @@ end
 group :development, :test do
   gem 'byebug', platform: :mri
   gem 'mysql2'
+  gem "rspec-rails"
 end
 group :production do
   gem 'pg'

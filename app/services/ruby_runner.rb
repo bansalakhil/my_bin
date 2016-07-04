@@ -1,10 +1,11 @@
 class RubyRunner
-  attr_accessor :ruby_bin, :container_name, :output, :lint_errors, :rubocop_errors, :test_runs
+  attr_accessor :ruby_bin, :container_name, :output, :lint_errors, :rubocop_errors, :test_runs, :timeout
 
   def initialize(ruby_bin)
     self.ruby_bin = ruby_bin
     self.container_name = "ruby-2-3-1"
     self.test_runs = []
+    self.timeout = 10
   end
 
   #Note: execute method executes ruby code by dumping ruby code in a file in /tmp/ directory with filename id.rb
@@ -35,7 +36,7 @@ class RubyRunner
       Rails.logger.debug "Container '#{container_name}' is running.."
     else
       Rails.logger.debug "Container '#{container_name}' is not running... Trying to run"
-      container_run_cmd  = "run -it --name #{container_name} -d -v /tmp:/tmp ruby:2.3.1"
+      container_run_cmd  = "run -it --name #{container_name} -d -v /tmp:/tmp bansalakhil/akhil-ruby:2.3.1"
       container_stop_cmd = "stop #{container_name}"
       container_rm_cmd   = "rm -f #{container_name}"
 
@@ -46,7 +47,7 @@ class RubyRunner
       container_status = `docker inspect -f {{.State.Running}} #{container_name}`
 
       # install required gems
-      `docker exec #{container_name} gem install rubocop ruby-lint --no-ri --no-rdoc`
+      # `docker exec #{container_name} gem install rubocop ruby-lint --no-ri --no-rdoc`
     end
     Rails.logger.info "#"*80
     container_status.strip == 'true'
@@ -61,7 +62,7 @@ class RubyRunner
   def check_lint
     Rails.logger.info "#"*80
     Rails.logger.debug "creating lint for ruby_bin##{ruby_bin.id}"
-    `docker exec #{container_name} ruby-lint #{ruby_bin_file}`
+    `docker exec #{container_name} timeout #{timeout} ruby-lint #{ruby_bin_file}`
   end
 
   def run_tests
@@ -74,7 +75,7 @@ class RubyRunner
         name = test.scan(/\[name\](.*)\[\/name\]/mi).flatten.first.strip
         input = test.scan(/\[input\](.*)\[\/input\]/mi).flatten.first.strip
         output = test.scan(/\[output\](.*)\[\/output\]/mi).flatten.first.strip
-        actual_output = (`docker exec -it #{container_name} ruby #{ruby_bin_file} #{input}`).strip
+        actual_output = (`docker exec -it #{container_name} timeout #{timeout} ruby #{ruby_bin_file} #{input}`).strip
         self.test_runs<< {name: name, input: input, output: output, actual_output: actual_output, passed: (output == actual_output)}
       end
     end
@@ -83,7 +84,7 @@ class RubyRunner
   def check_rubocop
     Rails.logger.info "#"*80
     Rails.logger.debug "creating rubocop for ruby_bin##{ruby_bin.id}"
-    `docker exec #{container_name} rubocop --format json #{ruby_bin_file}`
+    `docker exec #{container_name} timeout #{timeout} rubocop --format json #{ruby_bin_file}`
   end
 
   def ruby_bin_file
@@ -91,7 +92,7 @@ class RubyRunner
   end
 
   def execute_rubybin_file
-    `docker exec -it #{container_name} ruby #{ruby_bin_file} #{ruby_bin.input}`
+    `docker exec -it #{container_name} timeout #{timeout} ruby #{ruby_bin_file} #{ruby_bin.input}`
   end
 
   def delete_ruby_file

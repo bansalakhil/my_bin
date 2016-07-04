@@ -60,6 +60,9 @@
     </div>
     <div id="output">
       <p>
+        <small>If you don't see any output then your program didn't print anything on STDOUT or your program took more than <%= @ruby_runner.timeout -%> </small>
+      </p>
+      <p>
       <%= simple_format @ruby_runner.output -%>
       </p>
     </div>

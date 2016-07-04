@@ -15,3 +15,8 @@ development:
   username: root
   password: root
 
+test:
+  <<: *default
+  database: my_bin_test
+  username: root
+  password: root
