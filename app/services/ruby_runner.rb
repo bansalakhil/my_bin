@@ -72,11 +72,11 @@ class RubyRunner
     tests = ruby_bin.tests.split("===")
     if tests.present?
       tests.each do |test|
-        name = test.scan(/\[name\](.*)\[\/name\]/mi).flatten.first.strip
-        input = test.scan(/\[input\](.*)\[\/input\]/mi).flatten.first.strip
-        output = test.scan(/\[output\](.*)\[\/output\]/mi).flatten.first.strip
+        name = test.scan(/\[name\](.*)\[\/name\]/mi).flatten.first.strip rescue ""
+        input = test.scan(/\[input\](.*)\[\/input\]/mi).flatten.first.strip rescue ""
+        output = test.scan(/\[output\](.*)\[\/output\]/mi).flatten.first.strip rescue ""
         output = output.gsub(/\r\n/, "\n")
-        actual_output = (`docker exec #{container_name} timeout #{timeout} ruby #{ruby_bin_file} #{input}`).strip
+        actual_output = (`docker exec #{container_name} timeout #{timeout} ruby #{ruby_bin_file} #{input}`).strip rescue ""
         
         Rails.logger.info "#"*80
         Rails.logger.info "#"*80
