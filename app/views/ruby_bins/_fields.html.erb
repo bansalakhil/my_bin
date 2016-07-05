@@ -90,6 +90,10 @@
               <div>expected output:<br/> <%= simple_format test[:output] -%></div>
               <br/>
               <div>actual output:<br/> <%= simple_format test[:actual_output] -%></div>
+              <div style = "display:none">
+                <div>expected: <%= test[:output].inspect -%></div>
+                <div>actual: <%= test[:actual_output].inspect -%></div>
+              </div>
             </div>
             <br/>
             <br/>
