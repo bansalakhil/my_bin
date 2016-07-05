@@ -79,8 +79,8 @@ class RubyRunner
         
         Rails.logger.info "#"*80
         Rails.logger.info "#"*80
-        Rails.logger.info "Expected Output:\n #{output}"
-        Rails.logger.info "Actual Output:\n #{actual_output}"
+        Rails.logger.info "Expected Output:\n#{output.inspect}"
+        Rails.logger.info "Actual Output:\n#{actual_output.inspect}"
         Rails.logger.info "#"*80
         Rails.logger.info "#"*80
 
