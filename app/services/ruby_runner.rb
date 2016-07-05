@@ -75,7 +75,15 @@ class RubyRunner
         name = test.scan(/\[name\](.*)\[\/name\]/mi).flatten.first.strip
         input = test.scan(/\[input\](.*)\[\/input\]/mi).flatten.first.strip
         output = test.scan(/\[output\](.*)\[\/output\]/mi).flatten.first.strip
-        actual_output = (`docker exec -it #{container_name} timeout #{timeout} ruby #{ruby_bin_file} #{input}`).strip
+        actual_output = (`docker exec #{container_name} timeout #{timeout} ruby #{ruby_bin_file} #{input}`).strip
+        
+        Rails.logger.info "#"*80
+        Rails.logger.info "#"*80
+        Rails.logger.info "Expected Output:\n #{output}"
+        Rails.logger.info "Actual Output:\n #{actual_output}"
+        Rails.logger.info "#"*80
+        Rails.logger.info "#"*80
+
         self.test_runs<< {name: name, input: input, output: output, actual_output: actual_output, passed: (output == actual_output)}
       end
     end
@@ -92,7 +100,7 @@ class RubyRunner
   end
 
   def execute_rubybin_file
-    `docker exec -it #{container_name} timeout #{timeout} ruby #{ruby_bin_file} #{ruby_bin.input}`
+    `docker exec  #{container_name} timeout #{timeout} ruby #{ruby_bin_file} #{ruby_bin.input}`
   end
 
   def delete_ruby_file
