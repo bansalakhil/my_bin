@@ -74,7 +74,8 @@ class RubyRunner
       tests.each do |test|
         name = test.scan(/\[name\](.*)\[\/name\]/mi).flatten.first.strip
         input = test.scan(/\[input\](.*)\[\/input\]/mi).flatten.first.strip
-        output = test.scan(/\[output\](.*)\[\/output\]/mi).flatten.first.strip.gsub!(/\r\n/, "\n")
+        output = test.scan(/\[output\](.*)\[\/output\]/mi).flatten.first.strip
+        output = output.gsub(/\r\n/, "\n")
         actual_output = (`docker exec #{container_name} timeout #{timeout} ruby #{ruby_bin_file} #{input}`).strip
         
         Rails.logger.info "#"*80
