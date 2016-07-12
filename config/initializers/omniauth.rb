@@ -11,5 +11,5 @@ google_app_client_id = Rails.application.secrets.google_app_client_id
 google_app_secret = Rails.application.secrets.google_app_secret
 
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :google_oauth2, google_app_client_id, google_app_secret
+  provider :google_oauth2, google_app_client_id, google_app_secret, {skip_jwt: true}
 end
