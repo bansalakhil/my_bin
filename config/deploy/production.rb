@@ -53,7 +53,8 @@ set :passenger_restart_with_touch, true
  set :ssh_options, {
    forward_agent: false,
    keys: %w(/home/akhil/.ssh/id_dss),
-   auth_methods: %w(publickey)
+   auth_methods: %w(publickey),
+   host_key: "ssh-rsa"
  }
 
 # The server-based syntax can be used to override options:
