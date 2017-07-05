@@ -87,13 +87,13 @@
               <br/>
               <div>input:<br/> <%= test[:input] -%></div>
               <br/>
-              <div>expected output:<br/> <%= simple_format test[:output] -%></div>
+              <div>expected output:<br/> <pre><%= simple_format test[:output] -%></pre></div>
               <br/>
-              <div>actual output:<br/> <%= simple_format test[:actual_output] -%></div>
+              <div>actual output:<br/><pre> <%= simple_format test[:actual_output] -%></pre></div>
               <div style = "<%= (test[:passed]) ? "display:none" : "" -%>">
                 <p>Debug info:</p>
-                <div>expected: <br><%= test[:output].inspect -%></div>
-                <div>actual: <br><%= test[:actual_output].inspect -%></div>
+                <div>expected: <br><pre><%= test[:output].inspect -%></pre></div>
+                <div>actual: <br><pre><%= test[:actual_output].inspect -%></pre></div>
               </div>
             </div>
             <br/>
