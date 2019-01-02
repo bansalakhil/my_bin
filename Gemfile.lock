@@ -269,7 +269,7 @@ DEPENDENCIES
   jquery-ui-rails
   listen (~> 3.0.5)
   mysql2
-  omniauth-google-oauth2
+  omniauth-google-oauth2 (~> 0.6.0)
   paper_trail (~> 5.1.0)
   pg
   puma (~> 3.0)
