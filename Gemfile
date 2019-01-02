@@ -8,7 +8,7 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'jbuilder', '~> 2.0'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-gem "omniauth-google-oauth2"
+gem "omniauth-google-oauth2", '~> 0.6.0'
 gem 'paper_trail', '~> 5.1.0'
 gem 'puma', '~> 3.0'
 gem 'rails', '>= 5.0.0.beta4', '< 5.1'
@@ -28,7 +28,7 @@ group :development do
   gem 'capistrano-rails',               '~> 1.1.6'
   gem 'capistrano-passenger'
   gem 'capistrano-rails-console'
-  gem 'capistrano-rails-tail-log',      '~> 0.1.0'  
+  gem 'capistrano-rails-tail-log',      '~> 0.1.0'
 end
 
 group :development, :test do
