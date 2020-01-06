@@ -1,3 +1,7 @@
+<% if ruby_bin && @ruby_runner.nil? %>
+  <% @ruby_runner = RubyRunner.new(ruby_bin) -%>
+  <% @ruby_runner.execute -%>
+<% end %>
 <% rubocop_errors = JSON.parse(@ruby_runner.rubocop_errors) -%>
 <div class="col-lg-12">
   <div id="tabs">
@@ -48,7 +52,7 @@
               <h3><%= severity -%></h3>
               <% offenses.each do |offense| %>
                 <div>
-                  <span class = "col-md-2">Line: <%= offense["location"]["line"] -%> Col: <%= offense["location"]["column"] -%></span> 
+                  <span class = "col-md-2">Line: <%= offense["location"]["line"] -%> Col: <%= offense["location"]["column"] -%></span>
                   <%= offense["message"] -%>
                 </div>
               <% end %>
@@ -105,7 +109,7 @@
         <% end %>
         </div>
       </p>
-    </div>    
+    </div>
     <div id = 'versions' >
     <% if ruby_bin.versions.present? %>
       <h4>Older Versions:</h4>
