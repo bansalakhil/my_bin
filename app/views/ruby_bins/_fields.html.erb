@@ -14,7 +14,7 @@
       <li><a href="#flog">Flog <span id = 'flog_total_score' class = "badge badge-pill badge-info"><%= @ruby_runner.flog_score.split(":").first.strip %></span></a></li>
       <li><a href="#reek">Reek <span id = 'lint_error_count'><%= @ruby_runner.reek_output.size %></span></a></li>
       <li><a href="#tests">Tests</a></li>
-      <li><a href="#test_run">Tests Run<span id = 'lint_error_count'><%= @ruby_runner.test_runs.select{|test| !test[:passed]}.size %></a></li>
+      <li><a href="#test_run">Tests Run<span id = 'lint_error_count'><%= @ruby_runner.test_runs.select{|test| !test[:passed]}.size %>/<%= @ruby_runner.test_runs.size -%></a></li>
       <li><a href="#versions">History</a></li>
       <li><a href="#docs">Docs and APIs</a></li>
     </ul>
