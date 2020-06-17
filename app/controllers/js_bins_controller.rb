@@ -6,7 +6,13 @@ class JsBinsController < ApplicationController
   # GET /js_bins
   # GET /js_bins.json
   def index
-    @js_bins = current_user.js_bins.all
+    if params[:user_id] && current_user.admin?
+      @user = User.find(params[:user_id])
+    else
+      @user = current_user
+    end
+
+    @js_bins =   @user.js_bins.includes(:user).all
   end
 
   # GET /js_bins/1
@@ -81,9 +87,9 @@ class JsBinsController < ApplicationController
   <title>JS Bin</title>
 </head>
 <body>
-<p> 
+<p>
   hello there
-</p>  
+</p>
 </body>
 </html>
 

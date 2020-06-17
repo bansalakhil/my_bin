@@ -4,7 +4,13 @@ class RubyBinsController < ApplicationController
   authorize_resource
 
   def index
-    @ruby_bins = current_user.ruby_bins.all
+    if params[:user_id] && current_user.admin?
+      @user = User.find(params[:user_id])
+    else
+      @user = current_user
+    end
+
+    @ruby_bins = @user.ruby_bins.includes(:user).all
   end
 
   def show
