@@ -18,6 +18,7 @@ gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootst
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'uglifier', '>= 1.3.0'
 gem 'mysql2'
+gem 'rinku', require: "rails_rinku"
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.

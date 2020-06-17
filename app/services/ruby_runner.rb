@@ -1,5 +1,5 @@
 class RubyRunner
-  attr_accessor :ruby_bin, :container_name, :output, :lint_errors, :rubocop_errors, :test_runs, :timeout, :flog_score
+  attr_accessor :ruby_bin, :container_name, :output, :lint_errors, :rubocop_errors, :test_runs, :timeout, :flog_score, :reek_output
 
   def initialize(ruby_bin)
     self.ruby_bin = ruby_bin
@@ -18,6 +18,7 @@ class RubyRunner
     lint_errors = check_lint
     rubocop_errors = check_rubocop
     self.flog_score = check_flog_score
+    self.reek_output = JSON.parse(check_reek)
     run_tests
     delete_ruby_file
     self.output = output
@@ -70,6 +71,12 @@ class RubyRunner
     Rails.logger.info "#"*80
     Rails.logger.debug "checking flog score for ruby_bin##{ruby_bin.id}"
     `docker exec #{container_name} timeout #{timeout} flog -agbdcq #{ruby_bin_file}`
+  end
+
+  def check_reek
+    Rails.logger.info "#"*80
+    Rails.logger.debug "running reek for ruby_bin##{ruby_bin.id}"
+    `docker exec #{container_name} timeout #{timeout} reek -c /root/reek.yml -f json #{ruby_bin_file}`
   end
 
   def run_tests
