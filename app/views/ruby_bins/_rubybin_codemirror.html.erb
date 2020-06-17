@@ -9,10 +9,13 @@
         mode: "ruby"
       });
 
+    // setTimeout(1000, function(){rubyEditor.setSize("100%", "100%");});
+
     $(function() {
         $("#tabs").tabs({
             activate: function(event, ui) {
                 window.location.hash = ui.newPanel.attr('id');
+
             }
         });
 

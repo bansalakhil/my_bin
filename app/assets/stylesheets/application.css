@@ -87,3 +87,8 @@ div#test_run div.fail{
   text-decoration-color: maroon;
   text-decoration: underline;
 }
+
+
+.CodeMirror{
+  font-size: 14px;
+}
