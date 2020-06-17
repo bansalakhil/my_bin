@@ -10,7 +10,8 @@
       <li><a href="#input">input</a></li>
       <li><a href="#output">output</a></li>
       <li><a href="#lint">Lint <span id = 'lint_error_count'><%= @ruby_runner.lint_errors.lines.count %></span> </a></li>
-      <li><a href="#rubocop">Rubocop <span id = 'lint_error_count'><%= rubocop_errors["summary"]["offense_count"] %></a></li>
+      <li><a href="#rubocop">Rubocop <span id = 'lint_error_count'><%= rubocop_errors["summary"]["offense_count"] %></span></a></li>
+      <li><a href="#flog">Flog <span id = 'flog_total_score' class = "badge badge-pill badge-info"><%= @ruby_runner.flog_score.split(":").first.strip %></span></a></li>
       <li><a href="#tests">Tests</a></li>
       <li><a href="#test_run">Tests Run<span id = 'lint_error_count'><%= @ruby_runner.test_runs.select{|test| !test[:passed]}.size %></a></li>
       <li><a href="#versions">History</a></li>
@@ -41,6 +42,15 @@
         <div id="errors">
         <%= simple_format @ruby_runner.lint_errors -%>
         </div>
+      </p>
+    </div>
+    <div id="flog">
+      <h4>Flog reports the most tortured code in an easy to read pain report. The higher the score, the more pain the code is in. <%= link_to "http://ruby.sadi.st/Flog.html", "http://ruby.sadi.st/Flog.html", target: '_blank' %></h4>
+      <p>
+        <pre style = "color: black; background: #fbfbfb; font-size: 18px;">
+          <%= @ruby_runner.flog_score.gsub(/\/tmp\/rubybin.*\.rb:/, 'lines: ') -%>
+
+        </pre>
       </p>
     </div>
     <div id="rubocop">

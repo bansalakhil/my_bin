@@ -1,5 +1,5 @@
 class RubyRunner
-  attr_accessor :ruby_bin, :container_name, :output, :lint_errors, :rubocop_errors, :test_runs, :timeout
+  attr_accessor :ruby_bin, :container_name, :output, :lint_errors, :rubocop_errors, :test_runs, :timeout, :flog_score
 
   def initialize(ruby_bin)
     self.ruby_bin = ruby_bin
@@ -17,6 +17,7 @@ class RubyRunner
     output = execute_rubybin_file
     lint_errors = check_lint
     rubocop_errors = check_rubocop
+    self.flog_score = check_flog_score
     run_tests
     delete_ruby_file
     self.output = output
@@ -63,6 +64,12 @@ class RubyRunner
     Rails.logger.info "#"*80
     Rails.logger.debug "creating lint for ruby_bin##{ruby_bin.id}"
     `docker exec #{container_name} timeout #{timeout} ruby-lint #{ruby_bin_file}`
+  end
+
+  def check_flog_score
+    Rails.logger.info "#"*80
+    Rails.logger.debug "checking flog score for ruby_bin##{ruby_bin.id}"
+    `docker exec #{container_name} timeout #{timeout} flog -agbdcq #{ruby_bin_file}`
   end
 
   def run_tests
