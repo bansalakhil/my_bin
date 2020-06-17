@@ -22,6 +22,12 @@ module ApplicationHelper
     doc = Nokogiri::HTML.parse(js_bin.html)
     body = doc.at("body")
     head = doc.at("head")
+
+    # if head tag is missing then create one
+    unless head
+       head = body.add_previous_sibling("<head></head>")[0]
+    end
+
     head.add_child("<style>\n#{js_bin.css}</style>")
     body.add_child(render(partial: "js_bins/hijack_js_console")) if hijack_js_console
     body.add_child("<script language = 'javascript'>\n#{js_bin.js}</script>")
