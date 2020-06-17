@@ -39,6 +39,13 @@
       </p>
     </div>
     <div id="lint">
+      <h5>Ruby lint is a static code analysis tool for Ruby. ruby-lint primarily focuses on logic
+related errors such as the use of non existing variables instead of focusing on
+semantics (e.g. the amount of characters per line).
+The features of ruby-lint include but are not limited to the detection of
+unused variables, the use of undefined methods and method calls with invalid
+argument amounts and more. <%= link_to 'https://gitlab.com/yorickpeterse/ruby-lint', 'https://gitlab.com/yorickpeterse/ruby-lint', target: '_blank' %></h5>
+<br>
       <p>
         <div id="errors">
         <%= simple_format @ruby_runner.lint_errors -%>
@@ -55,7 +62,7 @@
       </p>
     </div>
     <div id="reek">
-      <h4>Reek is a tool that examines Ruby classes, modules and methods and reports any Code Smells it finds.</h4>
+      <h4>Reek is a tool that examines Ruby classes, modules and methods and reports any Code Smells it finds. <%= link_to "https://github.com/troessner/reek", "https://github.com/troessner/reek", target: '_blank' %></h4>
       <br>
       <br>
       <p>
@@ -77,6 +84,8 @@
       </p>
     </div>
     <div id="rubocop">
+      <h4>RuboCop is a Ruby static code analyzer (a.k.a. linter) and code formatter. Out of the box it will enforce many of the guidelines outlined in the community <%= link_to "Ruby Style Guide", 'https://rubystyle.guide/', target: '_blank' %>. <%= link_to "https://github.com/rubocop-hq/rubocop", 'https://github.com/rubocop-hq/rubocop', target: '_blank' %></h4>
+      <br>
       <p>
         <div id="errors">
         <% rubocop_errors["files"].each do |file| %>

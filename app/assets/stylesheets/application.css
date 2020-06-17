@@ -81,3 +81,9 @@ div#test_run div.fail{
   padding: 15px;
   background: red;
 }
+
+
+.ui-widget-content a{
+  text-decoration-color: maroon;
+  text-decoration: underline;
+}
