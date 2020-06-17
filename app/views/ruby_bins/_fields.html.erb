@@ -12,6 +12,7 @@
       <li><a href="#lint">Lint <span id = 'lint_error_count'><%= @ruby_runner.lint_errors.lines.count %></span> </a></li>
       <li><a href="#rubocop">Rubocop <span id = 'lint_error_count'><%= rubocop_errors["summary"]["offense_count"] %></span></a></li>
       <li><a href="#flog">Flog <span id = 'flog_total_score' class = "badge badge-pill badge-info"><%= @ruby_runner.flog_score.split(":").first.strip %></span></a></li>
+      <li><a href="#reek">Reek <span id = 'lint_error_count'><%= @ruby_runner.reek_output.size %></span></a></li>
       <li><a href="#tests">Tests</a></li>
       <li><a href="#test_run">Tests Run<span id = 'lint_error_count'><%= @ruby_runner.test_runs.select{|test| !test[:passed]}.size %></a></li>
       <li><a href="#versions">History</a></li>
@@ -51,6 +52,28 @@
           <%= @ruby_runner.flog_score.gsub(/\/tmp\/rubybin.*\.rb:/, 'lines: ') -%>
 
         </pre>
+      </p>
+    </div>
+    <div id="reek">
+      <h4>Reek is a tool that examines Ruby classes, modules and methods and reports any Code Smells it finds.</h4>
+      <br>
+      <br>
+      <p>
+        <%# auto_link simple_format(@ruby_runner.reek_output, {}, wrapper_tag: 'p') -%>
+        <ol >
+
+          <% @ruby_runner.reek_output.each do |reek| %>
+            <li style = "margin-bottom: 20px;">
+              <div>
+
+                <%= reek['context'] -%> <%= reek['message'] -%> <small class = "badge badge-info pull-right" >Lines: <%= reek['lines'].join(',') -%></small>
+              </div>
+              <div>
+                <small><%= link_to reek['smell_type'], reek["documentation_link"], target: '_blank', class: "btn btn-mini btn-warning" %></small>
+              </div>
+            </li>
+          <% end %>
+        </ol>
       </p>
     </div>
     <div id="rubocop">
