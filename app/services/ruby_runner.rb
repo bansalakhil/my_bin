@@ -3,13 +3,13 @@ class RubyRunner
 
   def initialize(ruby_bin)
     self.ruby_bin = ruby_bin
-    self.container_name = "ruby-2-3-1"
+    self.container_name = "ruby-2-7-1"
     self.test_runs = []
     self.timeout = 10
   end
 
   #Note: execute method executes ruby code by dumping ruby code in a file in /tmp/ directory with filename id.rb
-  # Ensure that a docker instance running with ruby 2.3.1. container's name must be ruby-2-3-1 and /tmp/ is mounted in
+  # Ensure that a docker instance running with ruby 2.7.1. container's name must be ruby-2-3-1 and /tmp/ is mounted in
   # docker container's /tmp/
   def execute
     return "Docker container not running" unless ensure_container_running
@@ -36,7 +36,7 @@ class RubyRunner
       Rails.logger.debug "Container '#{container_name}' is running.."
     else
       Rails.logger.debug "Container '#{container_name}' is not running... Trying to run"
-      container_run_cmd  = "run -it --name #{container_name} -d -v /tmp:/tmp bansalakhil/akhil-ruby:2.3.1"
+      container_run_cmd  = "run -it --name #{container_name} -d -v /tmp:/tmp bansalakhil/akhil-ruby:2.7.1"
       container_stop_cmd = "stop #{container_name}"
       container_rm_cmd   = "rm -f #{container_name}"
 
@@ -77,7 +77,7 @@ class RubyRunner
         output = test.scan(/\[output\](.*)\[\/output\]/mi).flatten.first.strip rescue ""
         output = output.gsub(/\r\n/, "\n")
         actual_output = (`docker exec #{container_name} timeout #{timeout} ruby #{ruby_bin_file} #{input}`).strip rescue ""
-        
+
         Rails.logger.info "#"*80
         Rails.logger.info "#"*80
         Rails.logger.info "Expected Output:\n#{output.inspect}"
