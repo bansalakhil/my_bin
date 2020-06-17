@@ -1,12 +1,22 @@
 <%- model_class = JsBin -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+    <div class="row">
+    <h1 class="col-md-9">JS Bin</h1>
+    <div class="pull-right col-md-3">
+      <% if current_user.admin? %>
+        User: <%= select_tag 'users', options_from_collection_for_select(User.all, "id", "name", @user.id), onchange: "javascript:window.location.href='#{ruby_bins_path}?user_id='+this.value" -%>
+
+      <% end %>
+    </div>
+
+  </div>
 </div>
 <table class="table table-striped">
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:title) %></th>
+      <th>User</th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%= model_class.human_attribute_name(:updated_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
@@ -17,6 +27,7 @@
       <tr>
         <td><%= link_to js_bin.id, js_bin_path(js_bin) %></td>
         <td><%= link_to js_bin.title, edit_js_bin_path(js_bin) %></td>
+        <td><%= js_bin.user.name -%></td>
         <td><%=l js_bin.created_at %></td>
         <td><%=l js_bin.updated_at %></td>
         <td>
