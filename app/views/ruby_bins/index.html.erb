@@ -3,7 +3,7 @@
     <h1 class="col-md-9">Ruby Bin</h1>
     <div class="pull-right col-md-3">
       <% if current_user.admin? %>
-        User: <%= select_tag 'users', options_from_collection_for_select(User.all, "id", "name", @user.id), onchange: "javascript:window.location.href='#{ruby_bins_path}?user_id='+this.value" -%>
+        User: <%= select_tag 'users', options_from_collection_for_select(User.all.order(:name), "id", "name", @user.id), onchange: "javascript:window.location.href='#{ruby_bins_path}?user_id='+this.value" -%>
 
       <% end %>
     </div>
