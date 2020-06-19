@@ -14,6 +14,9 @@
  *= require bootstrap_and_overrides
  *= require codemirror
  *= require codemirror/themes/night
+ *= require codemirror/addons/fold/foldgutter
+ *= require codemirror/addons/dialog/dialog
+ *= require codemirror/addons/hint/show-hint
  *= require jquery-ui/tabs
  */
 
@@ -92,3 +95,13 @@ div#test_run div.fail{
 .CodeMirror{
   font-size: 14px;
 }
+
+/*codemirror search highlight matching css*/
+.CodeMirror {border-top: 1px solid black; border-bottom: 1px solid black;}
+.CodeMirror-focused .cm-matchhighlight {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAFklEQVQI12NgYGBgkKzc8x9CMDAwAAAmhwSbidEoSQAAAABJRU5ErkJggg==);
+  background-position: bottom;
+  background-repeat: repeat-x;
+}
+.cm-matchhighlight {background-color: lightgreen}
+.CodeMirror-selection-highlight-scrollbar {background-color: green}
