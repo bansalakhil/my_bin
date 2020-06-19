@@ -45,6 +45,7 @@
 
 //= require codemirror/addons/edit/matchbrackets
 //= require codemirror/addons/edit/closebrackets
+//= require codemirror/addons/edit/closetag
 
 //= require codemirror/addons/comment/comment
 
@@ -57,6 +58,7 @@
 
 var codeFoldOptions = {
     tabSize: 2,
+    autoCloseTags: true,
     autoCloseBrackets: true,
     matchBrackets: true,
     showCursorWhenSelecting: true,
