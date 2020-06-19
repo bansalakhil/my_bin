@@ -105,3 +105,6 @@ div#test_run div.fail{
 }
 .cm-matchhighlight {background-color: lightgreen}
 .CodeMirror-selection-highlight-scrollbar {background-color: green}
+div.CodeMirror span.CodeMirror-matchingbracket{
+  color: #b91d1d !important;
+}
