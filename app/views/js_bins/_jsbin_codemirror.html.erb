@@ -7,35 +7,43 @@
     var testsTextArea = $("#js_bin_tests");
     var cssTextArea = $("#js_bin_css");
 
+
     var jsEditor =   CodeMirror.fromTextArea(jsTextArea[0], {
         lineNumbers: true,
         readOnly: textEditable,
-        mode: "javascript"
+        mode: {name: "javascript", json: true},
+        ...codeFoldOptions
       });
 
-
-      CodeMirror.fromTextArea(jsInitTextArea[0], {
+    var jsInitEditor = CodeMirror.fromTextArea(jsInitTextArea[0], {
         lineNumbers: true,
         readOnly: textEditable,
-        mode: "javascript"
+        mode: {name: "javascript", json: true},
+        ...codeFoldOptions
       });
+      // jsInitEditor.foldCode(CodeMirror.Pos(1, 0));
 
-      CodeMirror.fromTextArea(htmlTextArea[0], {
+    var htmlTextEditor = CodeMirror.fromTextArea(htmlTextArea[0], {
         lineNumbers: true,
         readOnly: textEditable,
-        mode: "htmlmixed"
+        mode: "htmlmixed",
+        ...codeFoldOptions
+
       });
+      // htmlTextEditor.foldCode(CodeMirror.Pos(2, 0));
 
       CodeMirror.fromTextArea(testsTextArea[0], {
         lineNumbers: true,
         readOnly: textEditable,
-        mode: "javascript"
+        mode: "javascript",
+        ...codeFoldOptions
       });
 
       CodeMirror.fromTextArea(cssTextArea[0], {
         lineNumbers: true,
         readOnly: textEditable,
-        mode: "css"
+        mode: "css",
+        ...codeFoldOptions
       });
 
     $(function() {

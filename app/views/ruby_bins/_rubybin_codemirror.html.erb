@@ -6,7 +6,8 @@
     var rubyEditor =   CodeMirror.fromTextArea(codeTextArea[0], {
         lineNumbers: true,
         readOnly: textEditable,
-        mode: "ruby"
+        mode: "ruby",
+        ...codeFoldOptions
       });
 
     // setTimeout(1000, function(){rubyEditor.setSize("100%", "100%");});
