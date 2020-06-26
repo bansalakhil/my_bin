@@ -65,13 +65,14 @@ class MysqlBinsController < ApplicationController
   def initial_queries
     "-- Using MySQL 5.7.30" +
     "\n-- Your Queries Here.\n"+
+    "\n-- Add statements like 'SHOW KEYS FROM TABLE_NAME;' and 'DESCRIBE TABLE_NAME;' to help reviewer to visualize DB."+
     "\n-- Do not include 'create database' statements. One db will be created for you. Just use tables you created in the schema tab.\n\n"
   end
 
   def initial_schema
     "-- Using MySQL 5.7.30" +
     "\n-- Your DB schma Here.\n"+
-    "\n-- Do not include 'create database' statements. One db will be created for you. "
+    "\n-- Do not include 'create database' statements. One db will be created for you. "+
     "\n-- You can include create table, insert statements etc .. here.\n\n"
   end
 
