@@ -1,0 +1,28 @@
+<%= form_for @mysql_bin, :html => { :class => "form-horizontal mysql_bin" } do |f| %>
+
+<%= render partial: 'shared/form_errors', locals: {obj: @mysql_bin} %>
+
+<div class="form-group">
+  <div class=" col-lg-10">
+    <div class="form-group pull-left col-lg-4">
+      <div class="">
+      <% if can? :update, @mysql_bin %>
+        <%= f.label :title, :class => 'control-label col-lg-3' %>
+        <%= f.text_field :title %>
+      <% else %>
+          <h4><%= @mysql_bin.title %></h4>
+      <% end %>
+      </div>
+      <%=f.error_span(:title) %>
+    </div>
+    <% if can? :update, @mysql_bin %>
+      <%= f.submit "Update & Run", :class => 'btn btn-primary' %>
+    <% end %>
+    <%= link_to "Full Page", mysql_bin_path(@mysql_bin), :class => 'btn btn-primary', target: "_blank" %>
+  </div>
+</div>
+
+<%= render partial: 'fields', locals: {f: f, mysql_bin: @mysql_bin} %>
+<%= render partial: 'shared/codemirror_hints' -%>
+
+<% end %>

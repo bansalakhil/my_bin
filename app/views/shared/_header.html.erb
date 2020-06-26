@@ -18,8 +18,11 @@
         <li>
         <%= link_to "Ruby Bin", ruby_bins_path %>
         </li>
+        <li>
+        <%= link_to "MySQL Bin", mysql_bins_path %>
+        </li>
       </ul>
-<!-- 
+<!--
         <li><a href="#">Link21</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
@@ -44,18 +47,18 @@
       <% if signed_in? %>
         <li >
         <%= link_to "#", class: 'header-links' do%>
-          <%=image_tag current_user.profile_pic, width: 25 %> 
+          <%=image_tag current_user.profile_pic, width: 25 %>
           <%=current_user.name%>
-        <%end %>  
+        <%end %>
         </li>
-      <% end %>      
+      <% end %>
         <li>
           <% if !signed_in? %>
             <%= link_to "Login with Google", new_sessions_path, class: 'header-links' %>
           <% else %>
             <%= link_to "Logout", sessions_path, class: 'header-links', method: :delete %>
-          <% end %>  
-        </li>        
+          <% end %>
+        </li>
       </ul>
     </div>
   </div>

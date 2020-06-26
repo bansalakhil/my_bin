@@ -1,0 +1,67 @@
+<% if mysql_bin && @mysql_runner.nil? %>
+  <% @mysql_runner = MysqlRunner.new(mysql_bin) -%>
+  <% @mysql_runner.execute -%>
+<% end %>
+
+<div class="col-lg-12">
+  <div id="tabs">
+    <ul>
+      <li><a href="#queries">Queries</a></li>
+      <li><a href="#output">Query Output</a></li>
+      <li><a href="#schema">Schema</a></li>
+      <li><a href="#schema_output">Schema Output</a></li>
+      <li><a href="#versions">History</a></li>
+    </ul>
+    <div id="queries">
+        <div class="">
+          <%= f.label :queries, :class => 'control-label' %>
+          <div class="">
+            <%= f.text_area :queries, :class => 'bin' %>
+          </div>
+          <%=f.error_span(:queries) %>
+        </div>
+    </div>
+
+    <div id="output" class = 'mysql_bin'>
+      <div id = 'output_hint'>
+        <small>If you don't see any output then your queries didn't execute within <%= @mysql_runner.timeout -%> seconds.</small>
+      </div>
+      <pre><%= @mysql_runner.queries_output -%></pre>
+    </div>
+
+    <div id="schema">
+      <p>
+        <div class="">
+        <%= f.label :schema, :class => 'control-label ' %>
+        <div class="">
+          <%= f.text_area :schema, :class => 'bin'%>
+        </div>
+        <%=f.error_span(:schema) %>
+      </div>
+      </p>
+    </div>
+
+    <div id="schema_output" class = 'mysql_bin'>
+      <pre><%= @mysql_runner.schema_output -%></pre>
+    </div>
+
+    <div id = 'versions' >
+    <% if mysql_bin.versions.present? %>
+      <h4>Older Versions:</h4>
+      <% mysql_bin.versions.each_with_index do |v, index| %>
+        <div>
+            <%= link_to  mysql_bin_version_path(mysql_bin, v), title: v.created_at do %>
+              <%= "v-#{index+1}: " + time_ago_in_words(v.created_at) -%> ago
+              <small>(<%= v.created_at -%>)</small>
+            <%end%>
+        </div>
+      <% end %>
+      <%= link_to "Latest Version", mysql_bin_version_path(mysql_bin, id: :latest)%>
+    <% end %>
+    </div>
+
+  </div>
+</div>
+
+
+<%= render partial: '/mysql_bins/mysqlbin_codemirror', locals: { mysql_bin: mysql_bin} %>
