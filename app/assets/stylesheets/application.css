@@ -130,3 +130,7 @@ div.mysql_bin pre  {
   font-size: 16px;
   font-family: monospace;
 }
+
+div.mysql_bin pre.error{
+  background: #ff00006b;
+}

@@ -26,6 +26,9 @@
       <div id = 'output_hint'>
         <small>If you don't see any output then your queries didn't execute within <%= @mysql_runner.timeout -%> seconds.</small>
       </div>
+      <% if @mysql_runner.queries_output_error.present? %>
+        <pre class = 'error'><%= @mysql_runner.queries_output_error -%></pre>
+      <% end %>
       <pre><%= @mysql_runner.queries_output -%></pre>
     </div>
 
@@ -42,6 +45,9 @@
     </div>
 
     <div id="schema_output" class = 'mysql_bin'>
+      <% if @mysql_runner.schema_output_error.present? %>
+        <pre class = 'error'><%= @mysql_runner.schema_output_error -%></pre>
+      <% end %>
       <pre><%= @mysql_runner.schema_output -%></pre>
     </div>
 

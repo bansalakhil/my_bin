@@ -1,5 +1,7 @@
 class MysqlRunner
-  attr_accessor :mysql_bin, :container_name,  :schema_output, :queries_output, :timeout, :docker_image, :mysql_password
+  attr_accessor :mysql_bin, :container_name, :schema_output, :queries_output, :schema_output_error, :queries_output_error, :timeout, :docker_image, :mysql_password
+
+  PASSWORD_WARNING = "mysql: [Warning] Using a password on the command line interface can be insecure."
 
   def initialize(mysql_bin)
     self.mysql_bin = mysql_bin
@@ -14,9 +16,10 @@ class MysqlRunner
     create_sql_schema_file
     create_sql_query_file
     # debugger
-
     self.schema_output = execute_schema_file
     self.queries_output = execute_queries_file
+    self.schema_output_error = File.read(mysql_bin_db_schema_output_file).gsub(PASSWORD_WARNING, '')
+    self.queries_output_error = File.read(mysql_bin_db_queries_output_file).gsub(PASSWORD_WARNING, '')
 
     delete_mysql_bin_file
     # debugger
@@ -101,20 +104,34 @@ class MysqlRunner
     "/tmp/mysqlbin_#{mysql_bin.id}_schema.sql"
   end
 
+  def mysql_bin_db_schema_output_file
+    "/tmp/mysqlbin_#{mysql_bin.id}_schema.sql.output"
+  end
+
   def mysql_bin_db_queries_file
     "/tmp/mysqlbin_#{mysql_bin.id}_queries.sql"
   end
 
+  def mysql_bin_db_queries_output_file
+    "/tmp/mysqlbin_#{mysql_bin.id}_queries.sql.output"
+  end
+
   def execute_schema_file
-    `docker exec  #{container_name} timeout #{timeout} bash -c "mysql -u root -p#{mysql_password} -t -v -v -v < #{mysql_bin_db_schema_file}" `
+    `docker exec  #{container_name} timeout #{timeout} bash -c "mysql -u root -p#{mysql_password} -t -v -v -v < #{mysql_bin_db_schema_file}" 2> #{mysql_bin_db_schema_output_file}`
   end
 
   def execute_queries_file
-    `docker exec  #{container_name} timeout #{timeout} bash -c "mysql -u root -p#{mysql_password} -t -v -v -v < #{mysql_bin_db_queries_file}" `
+    `docker exec  #{container_name} timeout #{timeout} bash -c "mysql -u root -p#{mysql_password} -t -v -v -v < #{mysql_bin_db_queries_file}   2> #{mysql_bin_db_queries_output_file}" `
   end
 
   def delete_mysql_bin_file
-    File.delete(mysql_bin_db_schema_file)
-    File.delete(mysql_bin_db_queries_file)
+    begin
+      File.delete(mysql_bin_db_schema_file)
+      File.delete(mysql_bin_db_schema_output_file)
+      File.delete(mysql_bin_db_queries_file)
+      File.delete(mysql_bin_db_queries_output_file)
+    rescue Exception => e
+
+    end
   end
 end
