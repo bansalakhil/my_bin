@@ -1,0 +1,39 @@
+<% content_for :footer do -%>
+  <script type="text/javascript">
+    var textEditable = <%= (can? :update, mysql_bin)? false : true %>;
+    var queriesTextArea = $("#mysql_bin_queries");
+
+    var queryEditor =   CodeMirror.fromTextArea(queriesTextArea[0], {
+        lineNumbers: true,
+        readOnly: textEditable,
+        mode: "text/x-mariadb",
+        ...codeFoldOptions
+      });
+
+
+    var schemaTextArea = $("#mysql_bin_schema");
+
+    var schemaEditor =   CodeMirror.fromTextArea(schemaTextArea[0], {
+        lineNumbers: true,
+        readOnly: textEditable,
+        mode: "text/x-mariadb",
+        ...codeFoldOptions
+      });
+
+    // setTimeout(1000, function(){rubyEditor.setSize("100%", "100%");});
+
+    $(function() {
+        $("#tabs").tabs({
+            activate: function(event, ui) {
+                // window.location.hash = ui.newPanel.attr('id');
+
+            }
+        });
+
+    });
+
+
+
+  </script>
+<% end %>
+

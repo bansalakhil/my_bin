@@ -16,6 +16,7 @@
 //= require codemirror
 //= require codemirror/modes/javascript
 //= require codemirror/modes/css
+//= require codemirror/modes/sql
 //= require codemirror/modes/ruby
 //= require codemirror/modes/xml
 //= require codemirror/modes/htmlmixed
@@ -39,6 +40,7 @@
 //= require codemirror/addons/hint/css-hint
 //= require codemirror/addons/hint/xml-hint
 //= require codemirror/addons/hint/html-hint
+//= require codemirror/addons/hint/sql-hint
 //= require codemirror/addons/hint/anyword-hint
 
 //= require codemirror/addons/dialog/dialog

@@ -17,7 +17,11 @@ Rails.application.routes.draw do
   resources :ruby_bins do
     resources :versions
   end
-  
+
+  resources :mysql_bins do
+    resources :versions
+  end
+
   resource :sessions
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

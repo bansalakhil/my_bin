@@ -1,0 +1,48 @@
+<div class="page-header">
+  <div class="row">
+    <h1 class="col-md-9">MySQL Bin</h1>
+    <div class="pull-right col-md-3">
+      <% if current_user.admin? %>
+        User: <%= select_tag 'users', options_from_collection_for_select(User.all.order(:name), "id", "name", @user.id), onchange: "javascript:window.location.href='#{mysql_bins_path}?user_id='+this.value" -%>
+
+      <% end %>
+    </div>
+
+  </div>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Title</th>
+      <th>User</th>
+      <th>Created At</th>
+      <th>Updated At</th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @mysql_bins.each do |mysql_bin| %>
+      <tr>
+        <td><%= link_to mysql_bin.id, mysql_bin_path(mysql_bin) %></td>
+        <td><%= link_to mysql_bin.title, edit_mysql_bin_path(mysql_bin) %></td>
+        <td><%= mysql_bin.user.name -%></td>
+        <td><%=l mysql_bin.created_at %></td>
+        <td><%=l mysql_bin.updated_at %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_mysql_bin_path(mysql_bin), :class => 'btn btn-default btn-xs' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      mysql_bin_path(mysql_bin),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-xs btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_mysql_bin_path,
+            :class => 'btn btn-primary' %>

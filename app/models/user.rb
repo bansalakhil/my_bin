@@ -5,6 +5,7 @@ class User < ApplicationRecord
 
   has_many :js_bins, dependent: :destroy
   has_many :ruby_bins, dependent: :destroy
+  has_many :mysql_bins, dependent: :destroy
 
   def update_info_from_auth_hash(auth_hash)
     update_attributes(
@@ -13,5 +14,5 @@ class User < ApplicationRecord
       profile_pic: auth_hash["info"][:image],
       token: auth_hash["credentials"][:token]
     )
-  end  
+  end
 end

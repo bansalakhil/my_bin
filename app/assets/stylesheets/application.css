@@ -108,3 +108,25 @@ div#test_run div.fail{
 div.CodeMirror span.CodeMirror-matchingbracket{
   color: #b91d1d !important;
 }
+
+/*
+div.mysql_bin p {
+    display: block;
+    unicode-bidi: embed;
+    font-family: monospace;
+    white-space: pre-line;
+    background: #ffeb0024;
+    margin: 5px 0;
+    padding: 15px 2px;
+    line-height: 15px;
+    font-weight: bold
+}*/
+
+
+
+div.mysql_bin pre  {
+  background: white;
+  color: black;
+  font-size: 16px;
+  font-family: monospace;
+}
