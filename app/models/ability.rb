@@ -12,7 +12,7 @@ class Ability
       can [:show, :edit], RubyBin
 
       can :manage, MysqlBin, user_id: user.id
-      can [:show, :edit], MysqlBin
+      can [:show, :edit, :schema_png, :schema_html], MysqlBin
 
     elsif user.persisted? && !user.admin?
       can :manage, JsBin, user_id: user.id
@@ -23,6 +23,7 @@ class Ability
 
       can :manage, MysqlBin, user_id: user.id
       can :read, MysqlBin, user_id: user.id
+      can [:schema_png, :schema_html], MysqlBin, user_id: user.id
     end
     # Define abilities for the passed in user here. For example:
     #
