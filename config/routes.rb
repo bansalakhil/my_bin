@@ -19,6 +19,10 @@ Rails.application.routes.draw do
   end
 
   resources :mysql_bins do
+    member do
+      get :schema_png
+      get :schema_html
+    end
     resources :versions
   end
 

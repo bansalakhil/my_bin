@@ -10,6 +10,7 @@
       <li><a href="#output">Query Output</a></li>
       <li><a href="#schema">Schema</a></li>
       <li><a href="#schema_output">Schema Output</a></li>
+      <li><a href="#visualize_schema">Visualize Schema</a></li>
       <li><a href="#versions">History</a></li>
     </ul>
     <div id="queries">
@@ -49,6 +50,18 @@
         <pre class = 'error'><%= @mysql_runner.schema_output_error -%></pre>
       <% end %>
       <pre><%= @mysql_runner.schema_output -%></pre>
+    </div>
+
+    <div id="visualize_schema" class = 'mysql_bin'>
+      <ul>
+        <li>
+          <%= link_to "PNG Schema", schema_png_mysql_bin_path(@mysql_bin), target: '_blank' %>
+        </li>
+        <li>
+          <%= link_to "HTML Schema", schema_html_mysql_bin_path(@mysql_bin), target: '_blank' %>
+        </li>
+      </ul>
+
     </div>
 
     <div id = 'versions' >
