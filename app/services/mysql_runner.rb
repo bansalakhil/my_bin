@@ -58,7 +58,8 @@ class MysqlRunner
   private
 
   def get_mysql_contaner_ip_address
-    ip_address = `docker inspect -f {{.NetworkSettings.Networks.#{DOCKER_CONTAINER_NETWORK_NAME}.IPAddress}} #{container_name}`
+    # ip_address = `docker inspect -f {{.NetworkSettings.Networks.#{DOCKER_CONTAINER_NETWORK_NAME}.IPAddress}} #{container_name}`
+    ip_address = `docker inspect -f {{.NetworkSettings.Networks.bridge.IPAddress}} #{container_name}`
     ip_address.strip
   end
 
@@ -69,7 +70,8 @@ class MysqlRunner
     `docker rm -f #{schemacrawler_container}`
     Rails.logger.info "Removed container #{schemacrawler_container}"
 
-    `docker run -it --network #{DOCKER_CONTAINER_NETWORK_NAME} --name #{schemacrawler_container} -d -v /tmp:/tmp  --entrypoint=/bin/bash #{schemacrawler_image}`
+    # `docker run -it --network #{DOCKER_CONTAINER_NETWORK_NAME} --name #{schemacrawler_container} -d -v /tmp:/tmp  --entrypoint=/bin/bash #{schemacrawler_image}`
+    `docker run -it  --name #{schemacrawler_container} -d -v /tmp:/tmp  --entrypoint=/bin/bash #{schemacrawler_image}`
 
     container_status = `docker inspect -f {{.State.Running}} #{schemacrawler_container}`
 
@@ -104,8 +106,9 @@ class MysqlRunner
   end
 
   def run_container
-    container_run_cmd  = "run -it --network #{DOCKER_CONTAINER_NETWORK_NAME} --name #{container_name} -e MYSQL_ROOT_PASSWORD=#{mysql_password} -d -v /tmp:/tmp #{docker_image}"
-    `docker network create #{DOCKER_CONTAINER_NETWORK_NAME}`
+    # container_run_cmd  = "run -it --network #{DOCKER_CONTAINER_NETWORK_NAME} --name #{container_name} -e MYSQL_ROOT_PASSWORD=#{mysql_password} -d -v /tmp:/tmp #{docker_image}"
+    container_run_cmd  = "run -it  --name #{container_name} -e MYSQL_ROOT_PASSWORD=#{mysql_password} -d -v /tmp:/tmp #{docker_image}"
+    # `docker network create #{DOCKER_CONTAINER_NETWORK_NAME}`
     `docker #{container_run_cmd}`
   end
 
