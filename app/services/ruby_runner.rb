@@ -38,7 +38,8 @@ class RubyRunner
       Rails.logger.debug "Container '#{container_name}' is running.."
     else
       Rails.logger.debug "Container '#{container_name}' is not running... Trying to run"
-      container_run_cmd  = "run -it --name #{container_name} -d -v /tmp:/tmp bansalakhil/akhil-ruby:2.7.1"
+      `docker network create #{DOCKER_CONTAINER_NETWORK_NAME}`
+      container_run_cmd  = "run -it --network #{DOCKER_CONTAINER_NETWORK_NAME} --name #{container_name} -d -v /tmp:/tmp bansalakhil/akhil-ruby:2.7.1"
       container_stop_cmd = "stop #{container_name}"
       container_rm_cmd   = "rm -f #{container_name}"
 

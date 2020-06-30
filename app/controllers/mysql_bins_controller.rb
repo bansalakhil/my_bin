@@ -1,5 +1,5 @@
 class MysqlBinsController < ApplicationController
-  before_action :set_mysql_bin, only: [:show, :edit, :update, :destroy]
+  before_action :set_mysql_bin, only: [:show, :edit, :update, :destroy, :schema_png, :schema_html]
 
   authorize_resource
 
@@ -14,6 +14,17 @@ class MysqlBinsController < ApplicationController
   end
 
   def show
+    render layout: false
+  end
+
+  def schema_png
+    @mysql_runner = MysqlRunner.new(@mysql_bin)
+    @mysql_runner.generate_schema_png
+  end
+
+  def schema_html
+    @mysql_runner = MysqlRunner.new(@mysql_bin)
+    @mysql_runner.generate_schema_html
     render layout: false
   end
 
