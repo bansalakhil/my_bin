@@ -186,11 +186,17 @@ class MysqlRunner
   end
 
   def export_schema_as_png
-    `docker exec #{schemacrawler_container}   bash -c "/opt/schemacrawler/schemacrawler.sh --server=mysql --host=#{get_mysql_contaner_ip_address} --port=3306 --database=#{mysql_bin.db_name} --schemas=#{mysql_bin.db_name} --user=root --password=#{mysql_password} --info-level=maximum --command=schema -F png -o #{mysql_bin_db_schema_png_file} "`
+    start_time = Time.current
+    `docker exec #{schemacrawler_container} timeout -t 60  bash -c "/opt/schemacrawler/schemacrawler.sh --server=mysql --host=#{get_mysql_contaner_ip_address} --port=3306 --database=#{mysql_bin.db_name} --schemas=#{mysql_bin.db_name} --user=root --password=#{mysql_password} --info-level=maximum --command=schema -F png -o #{mysql_bin_db_schema_png_file} "`
+    end_time = Time.current
+    Rails.logger.info "%%%%%% generated schema png in #{end_time - start_time} %%%%%%%"
   end
 
   def export_schema_as_html
-    `docker exec #{schemacrawler_container}  bash -c "/opt/schemacrawler/schemacrawler.sh --server=mysql --host=#{get_mysql_contaner_ip_address} --port=3306 --database=#{mysql_bin.db_name} --schemas=#{mysql_bin.db_name} --user=root --password=#{mysql_password} --info-level=maximum --command=schema -F html -o #{mysql_bin_db_schema_html_file} "`
+    start_time = Time.current
+    `docker exec #{schemacrawler_container} timeout -t 60 bash -c "/opt/schemacrawler/schemacrawler.sh --server=mysql --host=#{get_mysql_contaner_ip_address} --port=3306 --database=#{mysql_bin.db_name} --schemas=#{mysql_bin.db_name} --user=root --password=#{mysql_password} --info-level=maximum --command=schema -F html -o #{mysql_bin_db_schema_html_file} "`
+    end_time = Time.current
+    Rails.logger.info "%%%%%% generated schema html in #{end_time - start_time} %%%%%%%"
   end
 
   def delete_mysql_bin_file
