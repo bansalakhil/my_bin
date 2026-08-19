@@ -105,7 +105,6 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (5.0.5)
       railties (>= 3.2.16)
-    json (1.8.3)
     jwt (2.1.0)
     less (2.6.0)
       commonjs (~> 0.2.7)
@@ -160,8 +159,7 @@ GEM
       request_store (~> 1.1)
     pg (0.18.4)
     puma (3.4.0)
-    rack (2.0.0.rc1)
-      json
+    rack (2.2.3)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (5.0.0.rc1)
