@@ -10,7 +10,7 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem "omniauth-google-oauth2", '~> 0.6.0'
 gem 'paper_trail', '~> 5.1.0'
-gem 'puma', '~> 3.0'
+gem 'puma', '~> 3.12'
 gem 'rails', '>= 5.0.0.beta4', '< 5.1'
 gem 'sass-rails', '~> 5.0'
 gem 'therubyracer', platforms: :ruby
